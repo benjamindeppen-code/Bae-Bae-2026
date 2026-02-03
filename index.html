@@ -34,7 +34,7 @@
         border-radius: 50px;
         border: none;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease;
     }
 
     #yesBtn {
@@ -52,7 +52,6 @@
         border-radius: 15px;
         margin-top: 20px;
         box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        transition: opacity 0.3s ease;
     }
 </style>
 </head>
@@ -63,7 +62,6 @@
     <h1>Will you be my Valentine? 💖</h1>
 
     <div id="imageBox">
-        <!-- Your custom uploaded cute cat -->
         <img src="cute-cat.png" alt="cute cat">
     </div>
 
@@ -72,8 +70,8 @@
 </div>
 
 <script>
-    let yesSize = 1;
-    let noCount = 0;
+    let yesScale = 1;
+    let noClicks = 0;
 
     const noTexts = [
         "Please? 😿",
@@ -81,17 +79,16 @@
         "Pretty Please I Give You a Kiss ( ˘ ³˘)",
         "R U BEING FR RN??? ( ╹ -╹)?",
         "QUIT PLAYING IMMA SMACK YOU 👊😡👊",
-        "If You Don't Say Yes RN (૭ ｡•̀ ᵕ •́｡ )૭",
+        "If You Don't Say Yes RN (૭ ｡•̀ ᵕ •́｡ )૭"
     ];
 
-    // Images for each No-click
     const catImages = [
-        "cute-cat.png",       // your uploaded black cat
-        "pleading-cat.png",   // add your pleading cat image
-        "crying-cat.png",     // add your crying cat image
-        "angry-cat.png",      // add your angry cat image
-        "sad-cat.png",        // add your rainy/depressed cat image
-        "final-cat.png"       // optional final cat image
+        "dumb-cat.png",
+        "pleading-cat.png",
+        "crying-cat.png",
+        "angry-cat.png",
+        "sad-cat.png",
+        "final-cat.png"
     ];
 
     const imageBox = document.getElementById("imageBox");
@@ -99,28 +96,29 @@
     const yesBtn = document.getElementById("yesBtn");
 
     noBtn.addEventListener("click", () => {
-
         // Grow YES button
-        yesSize += 0.2;
-        yesBtn.style.transform = `scale(${yesSize})`;
+        yesScale += 0.2;
+        yesBtn.style.transform = `scale(${yesScale})`;
 
-        // Change No text
-        if (noCount < noTexts.length - 1) {
-            noBtn.textContent = noTexts[noCount + 1];
+        // Update No button text
+        if (noClicks < noTexts.length) {
+            noBtn.textContent = noTexts[noClicks];
         }
 
-        // Change cat image
-        if (noCount < catImages.length) {
-            imageBox.innerHTML = `<img src="${catImages[noCount]}" alt="cat meme ${noCount + 1}">`;
+        // Update image
+        if (noClicks < catImages.length) {
+            imageBox.innerHTML = `
+                <img src="${catImages[noClicks]}" alt="photo ${noClicks + 1}">
+            `;
         }
 
-        noCount++;
+        noClicks++;
     });
 
     yesBtn.addEventListener("click", () => {
         document.body.innerHTML = `
             <h1 style="color:white; font-size:4rem;">
-                YAY BAE YAY BAE! 💗 You clicked YES 😻
+                YAY BAE YAY BAE! 💗😻
             </h1>
         `;
     });
