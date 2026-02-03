@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine 💘</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    h1 {
+        color: #fff;
+        font-size: 3rem;
+        text-shadow: 2px 2px #ff4d6d;
+    }
+
+    .container {
+        z-index: 2;
+    }
+
+    button {
+        font-size: 1.5rem;
+        padding: 15px 30px;
+        margin: 20px;
+        border-radius: 50px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    #yesBtn {
+        background-color: #ff4d6d;
+        color: white;
+    }
+
+    #noBtn {
+        background-color: #fff;
+        color: #ff4d6d;
+    }
+
+    /* Balloons */
+    .balloon {
+        position: absolute;
+        bottom: -100px;
+        width: 40px;
+        height: 55px;
+        background: pink;
+        border-radius: 50% 50% 50% 50%;
+        animation: float 10s infinite ease-in;
+        opacity: 0.8;
+    }
+
+    .balloon::after {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 40px;
+        background: #555;
+        left: 50%;
+        top: 55px;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-120vh); }
+    }
+
+    /* Kitty */
+    .kitty {
+        position: absolute;
+        bottom: 20px;
+        font-size: 50px;
+        animation: roam 18s linear infinite;
+        z-index: 1;
+    }
+
+    @keyframes roam {
+        0% { left: -60px; transform: scaleX(1); }
+        49% { transform: scaleX(1); }
+        50% { left: 100vw; transform: scaleX(-1); }
+        99% { transform: scaleX(-1); }
+        100% { left: -60px; transform: scaleX(1); }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Balloons -->
+<div class="balloon" style="left: 10%; animation-duration: 12s;"></div>
+<div class="balloon" style="left: 30%; animation-duration: 9s;"></div>
+<div class="balloon" style="left: 50%; animation-duration: 11s;"></div>
+<div class="balloon" style="left: 70%; animation-duration: 10s;"></div>
+<div class="balloon" style="left: 90%; animation-duration: 13s;"></div>
+
+<!-- Kitty -->
+<div class="kitty">🐈‍⬛</div>
+
+<div class="container">
+    <h1>Will you be my Valentine? 💖</h1>
+    <button id="yesBtn">Yes 💕</button>
+    <button id="noBtn">No 🙄</button>
+</div>
+
+<script>
+    let yesSize = 1;
+    let noCount = 0;
+
+    const noTexts = [
+        "No 🙄",
+        "Are you sure?",
+        "Are you REALLY sure??",
+        "Like… 100% sure?",
+        "This is your last chance 😳",
+        "Just click yes already 💘"
+    ];
+
+    document.getElementById("noBtn").addEventListener("click", () => {
+        yesSize += 0.25;
+        document.getElementById("yesBtn").style.transform = `scale(${yesSize})`;
+
+        noCount++;
+        if (noCount < noTexts.length) {
+            document.getElementById("noBtn").textContent = noTexts[noCount];
+        }
+    });
+
+    document.getElementById("yesBtn").addEventListener("click", () => {
+        document.body.innerHTML = `
+            <h1 style="color:white; font-size:4rem;">
+                YAYYYYY 💘💘💘<br>
+                Best Valentine Ever 🥰
+            </h1>
+        `;
+    });
+</script>
+
+</body>
+</html>
