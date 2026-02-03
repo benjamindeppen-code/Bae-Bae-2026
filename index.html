@@ -52,6 +52,7 @@
         border-radius: 15px;
         margin-top: 20px;
         box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        transition: opacity 0.3s ease;
     }
 </style>
 </head>
@@ -62,8 +63,8 @@
     <h1>Will you be my Valentine? 💖</h1>
 
     <div id="imageBox">
-        <!-- Initial cute cat -->
-        <img src="https://placekitten.com/300/300" alt="cute cat">
+        <!-- Your custom uploaded cute cat -->
+        <img src="cute-cat.png" alt="cute cat">
     </div>
 
     <button id="yesBtn">Yes 💕</button>
@@ -83,14 +84,14 @@
         "Last one… just say yes 💌"
     ];
 
-    // Cat meme images for each no-click
+    // Images for each No-click
     const catImages = [
-        "https://placekitten.com/300/300",                               // cute
-        "https://c.tenor.com/0ihewHkzJrIAAAAC/pleading-cat.gif",          // pleading cat
-        "https://c.tenor.com/9Q0F6CWcKTsAAAAC/crying-cat-crying.gif",     // crying cat
-        "https://c.tenor.com/ygKHX8TGq3oAAAAC/angry-cat.gif",              // angry cat
-        "https://c.tenor.com/6j6k7XzB_FMAAAAC/sad-cat.gif",                // sad/rainy mood
-        "https://placekitten.com/321/301"                                 // final cat
+        "cute-cat.png",       // your uploaded black cat
+        "pleading-cat.png",   // add your pleading cat image
+        "crying-cat.png",     // add your crying cat image
+        "angry-cat.png",      // add your angry cat image
+        "sad-cat.png",        // add your rainy/depressed cat image
+        "final-cat.png"       // optional final cat image
     ];
 
     const imageBox = document.getElementById("imageBox");
@@ -99,16 +100,16 @@
 
     noBtn.addEventListener("click", () => {
 
-        // Increase size of YES button
+        // Grow YES button
         yesSize += 0.2;
         yesBtn.style.transform = `scale(${yesSize})`;
 
-        // Change no text
+        // Change No text
         if (noCount < noTexts.length - 1) {
             noBtn.textContent = noTexts[noCount + 1];
         }
 
-        // Update cat image
+        // Change cat image
         if (noCount < catImages.length) {
             imageBox.innerHTML = `<img src="${catImages[noCount]}" alt="cat meme ${noCount + 1}">`;
         }
