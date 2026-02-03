@@ -47,66 +47,25 @@
         color: #ff4d6d;
     }
 
-    /* Balloons */
-    .balloon {
-        position: absolute;
-        bottom: -100px;
-        width: 40px;
-        height: 55px;
-        background: pink;
-        border-radius: 50% 50% 50% 50%;
-        animation: float 10s infinite ease-in;
-        opacity: 0.8;
-    }
-
-    .balloon::after {
-        content: "";
-        position: absolute;
-        width: 2px;
-        height: 40px;
-        background: #555;
-        left: 50%;
-        top: 55px;
-    }
-
-    @keyframes float {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-120vh); }
-    }
-
-    /* Kitty */
-    .kitty {
-        position: absolute;
-        bottom: 20px;
-        font-size: 50px;
-        animation: roam 18s linear infinite;
-        z-index: 1;
-    }
-
-    @keyframes roam {
-        0% { left: -60px; transform: scaleX(1); }
-        49% { transform: scaleX(1); }
-        50% { left: 100vw; transform: scaleX(-1); }
-        99% { transform: scaleX(-1); }
-        100% { left: -60px; transform: scaleX(1); }
+    #imageBox img {
+        max-width: 320px;
+        border-radius: 15px;
+        margin-top: 20px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     }
 </style>
 </head>
 
 <body>
 
-<!-- Balloons -->
-<div class="balloon" style="left: 10%; animation-duration: 12s;"></div>
-<div class="balloon" style="left: 30%; animation-duration: 9s;"></div>
-<div class="balloon" style="left: 50%; animation-duration: 11s;"></div>
-<div class="balloon" style="left: 70%; animation-duration: 10s;"></div>
-<div class="balloon" style="left: 90%; animation-duration: 13s;"></div>
-
-<!-- Kitty -->
-<div class="kitty">🐈‍⬛</div>
-
 <div class="container">
     <h1>Will you be my Valentine? 💖</h1>
+
+    <div id="imageBox">
+        <!-- Initial cute cat -->
+        <img src="https://placekitten.com/300/300" alt="cute cat">
+    </div>
+
     <button id="yesBtn">Yes 💕</button>
     <button id="noBtn">No 🙄</button>
 </div>
@@ -117,28 +76,50 @@
 
     const noTexts = [
         "No 🙄",
-        "Are you sure?",
-        "Are you REALLY sure??",
-        "Like… 100% sure?",
-        "This is your last chance 😳",
-        "Just click yes already 💘"
+        "Please? 😿",
+        "Crying kitty… 😢",
+        "Angry cat says no 😾",
+        "Rainy day mood 😿",
+        "Last one… just say yes 💌"
     ];
 
-    document.getElementById("noBtn").addEventListener("click", () => {
-        yesSize += 0.25;
-        document.getElementById("yesBtn").style.transform = `scale(${yesSize})`;
+    // Cat meme images for each no-click
+    const catImages = [
+        "https://placekitten.com/300/300",                               // cute
+        "https://c.tenor.com/0ihewHkzJrIAAAAC/pleading-cat.gif",          // pleading cat
+        "https://c.tenor.com/9Q0F6CWcKTsAAAAC/crying-cat-crying.gif",     // crying cat
+        "https://c.tenor.com/ygKHX8TGq3oAAAAC/angry-cat.gif",              // angry cat
+        "https://c.tenor.com/6j6k7XzB_FMAAAAC/sad-cat.gif",                // sad/rainy mood
+        "https://placekitten.com/321/301"                                 // final cat
+    ];
+
+    const imageBox = document.getElementById("imageBox");
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    noBtn.addEventListener("click", () => {
+
+        // Increase size of YES button
+        yesSize += 0.2;
+        yesBtn.style.transform = `scale(${yesSize})`;
+
+        // Change no text
+        if (noCount < noTexts.length - 1) {
+            noBtn.textContent = noTexts[noCount + 1];
+        }
+
+        // Update cat image
+        if (noCount < catImages.length) {
+            imageBox.innerHTML = `<img src="${catImages[noCount]}" alt="cat meme ${noCount + 1}">`;
+        }
 
         noCount++;
-        if (noCount < noTexts.length) {
-            document.getElementById("noBtn").textContent = noTexts[noCount];
-        }
     });
 
-    document.getElementById("yesBtn").addEventListener("click", () => {
+    yesBtn.addEventListener("click", () => {
         document.body.innerHTML = `
             <h1 style="color:white; font-size:4rem;">
-                YAYYYYY 💘💘💘<br>
-                Best Valentine Ever 🥰
+                YAY! 💗 You clicked YES 😻
             </h1>
         `;
     });
